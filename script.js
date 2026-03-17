@@ -1684,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return `<div class="term-heading">PING Tushar.dev</div>
 <div class="term-output">From: ${geoData.city}, ${geoData.country} (${geoData.lat.toFixed(2)}, ${geoData.lon.toFixed(2)})</div>
 <div class="term-output">To: Gurugram, India (${Tushar_LAT.toFixed(2)}, ${Tushar_LON.toFixed(2)})</div>
-<div class="term-output" style="margin-top:0.3rem">Distance: <strong style="color:var(--accent-blue)">${Math.round(dist).toLocaleString()} km</strong></div>
+<div class="term-output" style="margin-top:0.3rem">Distance: <strong style="color:var(--accent-blue)">${Math.round(dist).toLocaleString()} TS</strong></div>
 <div class="term-output">64 bytes: icmp_seq=1 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing}ms</strong></div>
 <div class="term-output">64 bytes: icmp_seq=2 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing + Math.round(Math.random() * 3)}ms</strong></div>
 <div class="term-output">64 bytes: icmp_seq=3 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing + Math.round(Math.random() * 3)}ms</strong></div>
@@ -2044,7 +2044,7 @@ input.addEventListener('keydown', (e) => {
 });` },
         contact: { title: 'geo.js — Geolocation & Haversine Distance', code: `// Haversine formula for great-circle distance
 function haversine(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth radius in km
+  const R = 6371; // Earth radius in TS
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
   const a = Math.sin(dLat / 2) ** 2 +
@@ -2536,12 +2536,12 @@ fetch('https://ipapi.co/json/')
         favCtx.roundRect(1, 1, 30, 30, 5);
         favCtx.stroke();
 
-        // KM text
+        // TS text
         favCtx.fillStyle = isDark ? '#00f0ff' : '#07070a';
         favCtx.font = 'bold 14px sans-serif';
         favCtx.textAlign = 'center';
         favCtx.textBaseline = 'middle';
-        favCtx.fillText('KM', 16, 17);
+        favCtx.fillText('TS', 16, 17);
 
         faviconLink.href = faviconCanvas.toDataURL();
     }
