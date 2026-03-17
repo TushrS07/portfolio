@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tushar Singla | Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZE56CHCJF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8ZE56CHCJF');
+    </script>
+</head>
+<body class="dark-theme">
+
+    <!-- Boot Sequence Screen -->
+    <div id="boot-screen">
+        <div class="boot-terminal" id="boot-terminal"></div>
+        <div class="boot-progress-bar">
+            <div class="boot-progress-fill" id="boot-progress-fill"></div>
+        </div>
+        <button class="boot-skip-btn" id="boot-skip">Press ESC or click to skip</button>
+    </div>
+
+    <!-- Page Transition Overlay -->
+    <div id="page-transition-overlay" class="page-transition-overlay">
+        <span class="transition-text">LOADING MODULE...</span>
+    </div>
+
+    <!-- Command Palette -->
+    <div id="command-palette" class="command-palette">
+        <div class="cmd-palette-content glass-card">
+            <div class="cmd-palette-header">
+                <i class="fas fa-terminal"></i>
+                <input type="text" id="cmd-palette-input" placeholder="Type a command or search..." autocomplete="off" spellcheck="false">
+                <kbd>Esc</kbd>
+            </div>
+            <div class="cmd-palette-results" id="cmd-palette-results"></div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Cheat Sheet -->
+    <div id="shortcuts-modal" class="shortcuts-modal">
+        <div class="shortcuts-content glass-card">
+            <div class="shortcuts-header">
+                <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                <button id="shortcuts-close" class="shortcuts-close">&times;</button>
+            </div>
+            <div class="shortcuts-grid">
+                <div class="shortcut-group">
+                    <h4>Navigation</h4>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>h</kbd><span>Go to Home</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>a</kbd><span>Go to About</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>e</kbd><span>Go to Experience</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>s</kbd><span>Go to Skills</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>p</kbd><span>Go to Projects</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>b</kbd><span>Go to Blog</span></div>
+                    <div class="shortcut-item"><kbd>g</kbd> <kbd>c</kbd><span>Go to Contact</span></div>
+                </div>
+                <div class="shortcut-group">
+                    <h4>Actions</h4>
+                    <div class="shortcut-item"><kbd>t</kbd><span>Toggle Theme</span></div>
+                    <div class="shortcut-item"><kbd>/</kbd><span>Focus Terminal</span></div>
+                    <div class="shortcut-item"><kbd>Ctrl</kbd><kbd>K</kbd><span>Command Palette</span></div>
+                    <div class="shortcut-item"><kbd>Ctrl</kbd><kbd>⇧</kbd><kbd>S</kbd><span>View Source</span></div>
+                    <div class="shortcut-item"><kbd>Esc</kbd><span>Close Overlay</span></div>
+                    <div class="shortcut-item"><kbd>?</kbd><span>Show This Sheet</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Interactive AI Assistant -->
+    <div id="ai-assistant" class="ai-assistant">
+        <div class="ai-orb"></div>
+        <div class="ai-ring"></div>
+        <div class="tour-controls" id="tour-controls">
+            <div class="ai-speech-bubble" id="ai-speech">Hi! I'm Tushar's AI. Click me for a tour!</div>
+            <div class="tour-buttons">
+                <button id="tour-back" class="tour-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="tour-progress" id="tour-progress">1/6</div>
+                <button id="tour-next" class="tour-btn"><i class="fas fa-chevron-right"></i></button>
+                <button id="tour-skip" class="tour-btn skip-btn"><i class="fas fa-times"></i> Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Canvas for Particles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Floating Code Snippets -->
+    <div class="code-bg-elements parallax-layer" data-depth="0.3" aria-hidden="true">
+        <div class="code-snippet snippet-1">const app = express();</div>
+        <div class="code-snippet snippet-2">SELECT * FROM sessions</div>
+        <div class="code-snippet snippet-3">@RestController /api/v1/auth</div>
+        <div class="code-snippet snippet-4">docker-compose up -d</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav content-hidden">
+        <div class="nav-container">
+            <a href="#home" class="logo">TS<span class="dot">.</span></a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound">
+                <i class="fas fa-volume-xmark" id="sound-icon"></i>
+            </button>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="content-hidden">
+        <!-- Hero Section -->
+        <section id="home" class="hero section">
+            <div class="container hero-content">
+                <div class="hero-text parallax-layer" data-depth="0.6">
+                    <p class="greeting">Hello World, I am</p>
+                    <h1 class="glitch-text" data-text="Tushar Singla">
+                        <span class="typing-text"></span><span class="cursor">|</span>
+                    </h1>
+                    <h2 class="subtitle gradient-text"> Associate Engineer</h2>
+                    <p class="tagline">Building ETL Pipelines, MERN Applications, Spring Boot APIs.</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary glow-effect">
+                            View My Work <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary glass-btn">
+                            Get In Touch
+                        </a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/TushrS07" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:tusharsingla1205@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="hero-visual parallax-layer" data-depth="0.8">
+                    <div class="terminal-window glass-card interactive-terminal">
+                        <div class="terminal-header">
+                            <span class="btn-close"></span>
+                            <span class="btn-min"></span>
+                            <span class="btn-max"></span>
+                            <span class="terminal-title">tushar@portfolio:~</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-output" id="terminal-output" role="log" aria-live="polite"></div>
+                            <div class="terminal-input-line">
+                                <span class="terminal-prompt">visitor@tushar-os:~$</span>
+                                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">About <span class="gradient-text">Me</span></h2>
+                <div class="about-grid about-grid-3col">
+                    <!-- Animated SVG Monogram -->
+                    <div class="profile-visual reveal">
+                        <div class="profile-frame">
+                            <svg class="monogram-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="mono-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:var(--accent-blue)"/>
+                                        <stop offset="100%" style="stop-color:var(--accent-purple)"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="100" cy="100" r="95" fill="none" stroke="url(#mono-gradient)" stroke-width="2" class="monogram-circle"/>
+                                <text x="100" y="115" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="58" font-weight="700" fill="none" stroke="url(#mono-gradient)" stroke-width="1.5" class="monogram-text">TS</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="about-text glass-card">
+                        <p>I'm a Full Stack Developer with hands-on experience in JavaScript (MERN) and Java, passionate about building scalable web applications and production-grade backend systems.</p>
+                        <p>With expertise in Spring Boot, Node.js, and React, I thrive on building and optimizing high-volume data pipelines and SQL-driven solutions. From designing RESTful APIs to implementing real-time attendance systems with facial recognition, I love turning complex requirements into elegant solutions.</p>
+                        <div class="education-card mt-4">
+                            <i class="fas fa-graduation-cap edu-icon"></i>
+                            <div>
+                                <h3>Bachelor of Computer Science Engineering</h3>
+                                <p class="highlight">Chitkara University, Punjab</p>
+                                <p class="date">Sep 2022 – Present</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card glass-card hover-glow">
+                            <div class="stat-number neon-blue" data-target="9">0</div>
+                            <div class="stat-label">Months Experience</div>
+                        </div>
+                        <div class="stat-card glass-card hover-glow">
+                            <div class="stat-number neon-purple" data-target="8.15">0</div>
+                            <div class="stat-label">CGPA</div>
+                        </div>
+                        <div class="stat-card glass-card hover-glow">
+                            <div class="stat-number neon-blue" data-target="100" data-suffix="+">0</div>
+                            <div class="stat-label">DSA Problems Solved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">My <span class="gradient-text">Experience</span></h2>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content glass-card hover-glow">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3 class="role">Associate Engineer (SQL, C#)</h3>
+                                    <h4 class="company highlight">Indus Valley Partners (IVP) <span class="location"><i class="fas fa-map-marker-alt"></i> Noida</span></h4>
+                                </div>
+                                <div class="date-badge">Jun 2025 – Present</div>
+                            </div>
+                            <div class="exp-category mt-4">
+                                <h5 class="category-title neon-blue"><i class="fas fa-database"></i> Backend & Data Engineering</h5>
+                                <ul class="exp-list">
+                                    <li>Designed and maintained backend data services and ETL pipelines in production financial systems.</li>
+                                    <li>Designed, developed, and maintained backend services and data pipelines supporting enterprise-scale financial applications.</li>
+                                    <li>Built and optimized SQL queries and stored procedures on relational databases (MySQL/SSMS) to ensure efficient data retrieval and consistency.</li>
+                                    <li>Gained hands-on experience with enterprise-scale database systems and version control workflows in production settings.</li>
+                                </ul>
+                            </div>
+                            <div class="exp-category mt-4">
+                                <h5 class="category-title neon-purple"><i class="fas fa-users"></i> Collaboration & Delivery</h5>
+                                <ul class="exp-list">
+                                    <li>Collaborated with senior engineers, QA, and cross-functional teams to understand business requirements and deliver backend solutions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Git Commit Timeline -->
+                <div class="commit-timeline reveal" id="commit-timeline">
+                    <div class="commit-track">
+                        <div class="commit-line"></div>
+                        <div class="commit-node" data-date="Jun 2025" data-metric="Day 1">
+                            <div class="commit-dot"></div>
+                            <div class="commit-card glass-card">
+                                <div class="commit-hash">#a1b2c3f</div>
+                                <div class="commit-msg">feat: join IVP as Associate Engineer</div>
+                                <div class="commit-diff">
+                                    <span class="diff-add">+ Onboarded to financial data team</span>
+                                    <span class="diff-add">+ Set up SQL/C# dev environment</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="commit-node" data-date="Jul 2025" data-metric="ETL">
+                            <div class="commit-dot"></div>
+                            <div class="commit-card glass-card">
+                                <div class="commit-hash">#d4e5f6a</div>
+                                <div class="commit-msg">feat: build ETL pipelines for financial data</div>
+                                <div class="commit-diff">
+                                    <span class="diff-add">+ Backend data services designed</span>
+                                    <span class="diff-add">+ Production ETL pipelines live</span>
+                                    <span class="diff-add">+ Enterprise-scale DB workflows</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="commit-node" data-date="Sep 2025" data-metric="SQL opt">
+                            <div class="commit-dot"></div>
+                            <div class="commit-card glass-card">
+                                <div class="commit-hash">#b7c8d9e</div>
+                                <div class="commit-msg">perf: optimize SQL queries & stored procs</div>
+                                <div class="commit-diff">
+                                    <span class="diff-add">+ MySQL/SSMS query optimization</span>
+                                    <span class="diff-add">+ Efficient data retrieval achieved</span>
+                                    <span class="diff-add">+ DB consistency improved</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="commit-node" data-date="Nov 2025" data-metric="collab">
+                            <div class="commit-dot"></div>
+                            <div class="commit-card glass-card">
+                                <div class="commit-hash">#f0a1b2c</div>
+                                <div class="commit-msg">chore: cross-functional team delivery</div>
+                                <div class="commit-diff">
+                                    <span class="diff-add">+ Business requirements delivered</span>
+                                    <span class="diff-add">+ QA & senior eng collaboration</span>
+                                    <span class="diff-add">+ Backend solutions shipped</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="commit-node" data-date="Mar 2026" data-metric="9 months">
+                            <div class="commit-dot active"></div>
+                            <div class="commit-card glass-card">
+                                <div class="commit-hash">HEAD</div>
+                                <div class="commit-msg">status: 9 months of impact</div>
+                                <div class="commit-diff">
+                                    <span class="diff-add">+ Production financial systems running</span>
+                                    <span class="diff-add">+ Full Stack + DB expertise growing</span>
+                                    <span class="diff-add">+ Seeking next challenge...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Achievements & <span class="gradient-text">Highlights</span></h2>
+                <div class="certs-grid">
+                    <div class="cert-card glass-card reveal" data-stamp>
+                        <div class="cert-icon"><i class="fab fa-amazon"></i></div>
+                        <div class="cert-badge-stamp"></div>
+                        <h3 class="cert-name">Amazon Smbhav Hackathon 2024</h3>
+                        <p class="cert-issuer">Semi-Finalist</p>
+                        <p class="cert-date">~100,000 participants</p>
+                    </div>
+                    <div class="cert-card glass-card reveal delay-1" data-stamp>
+                        <div class="cert-icon"><i class="fas fa-code"></i></div>
+                        <div class="cert-badge-stamp"></div>
+                        <h3 class="cert-name">100+ DSA Problems Solved</h3>
+                        <p class="cert-issuer">Competitive Platforms</p>
+                        <p class="cert-date">LeetCode, HackerRank & more</p>
+                    </div>
+                    <div class="cert-card glass-card reveal delay-2" data-stamp>
+                        <div class="cert-icon"><i class="fas fa-database"></i></div>
+                        <div class="cert-badge-stamp"></div>
+                        <h3 class="cert-name">Production ETL Systems</h3>
+                        <p class="cert-issuer">Indus Valley Partners</p>
+                        <p class="cert-date">Enterprise-scale financial apps</p>
+                    </div>
+                    <div class="cert-card glass-card reveal delay-3" data-stamp>
+                        <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="cert-badge-stamp"></div>
+                        <h3 class="cert-name">B.Tech Computer Science</h3>
+                        <p class="cert-issuer">Chitkara University</p>
+                        <p class="cert-date">CGPA: 8.15</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Skills & <span class="gradient-text">Tech Stack</span></h2>
+                <!-- Skill Radar Chart -->
+                <div class="radar-chart-container reveal">
+                    <svg id="skill-radar" class="skill-radar" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="radar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00f0ff; stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#9d00ff; stop-opacity:0.3"/>
+                            </linearGradient>
+                            <filter id="radar-glow">
+                                <feGaussianBlur stdDeviation="3" result="blur"/>
+                                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Grid rings -->
+                        <polygon class="radar-ring" points="" data-level="0.25"/>
+                        <polygon class="radar-ring" points="" data-level="0.5"/>
+                        <polygon class="radar-ring" points="" data-level="0.75"/>
+                        <polygon class="radar-ring" points="" data-level="1"/>
+                        <!-- Axis lines -->
+                        <g class="radar-axes"></g>
+                        <!-- Data polygon -->
+                        <polygon id="radar-data" class="radar-data" points="" fill="url(#radar-gradient)" filter="url(#radar-glow)"/>
+                        <!-- Data points -->
+                        <g id="radar-points" class="radar-points"></g>
+                        <!-- Labels -->
+                        <g id="radar-labels" class="radar-labels"></g>
+                    </svg>
+                    <div id="radar-tooltip" class="radar-tooltip"></div>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category glass-card reveal">
+                        <h3><i class="fas fa-code"></i> Languages</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">C++</span>
+                        </div>
+                    </div>
+                    <div class="skill-category glass-card reveal delay-1">
+                        <h3><i class="fas fa-server"></i> Backend</h3>
+                        <div class="skill-tags">
+                            <span class="tag neon-border">Spring Boot</span>
+                            <span class="tag neon-border">Node.js</span>
+                            <span class="tag">Express.js</span>
+                            <span class="tag neon-border">REST APIs</span>
+                            <span class="tag">MVC Architecture</span>
+                        </div>
+                    </div>
+                    <div class="skill-category glass-card reveal delay-2">
+                        <h3><i class="fas fa-database"></i> Databases</h3>
+                        <div class="skill-tags">
+                            <span class="tag neon-border">MySQL</span>
+                            <span class="tag neon-border">SSMS</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="skill-category glass-card reveal">
+                        <h3><i class="fas fa-cloud"></i> DevOps & Deployment</h3>
+                        <div class="skill-tags">
+                            <span class="tag neon-border">Docker</span>
+                            <span class="tag">Nginx</span>
+                            <span class="tag">AWS (EC2, S3)</span>
+                            <span class="tag">CI/CD</span>
+                            <span class="tag">PM2</span>
+                            <span class="tag">Linux</span>
+                        </div>
+                    </div>
+                    <div class="skill-category glass-card reveal delay-1">
+                        <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Git / GitHub</span>
+                            <span class="tag">Postman</span>
+                            <span class="tag">Jira</span>
+                            <span class="tag">SSH</span>
+                        </div>
+                    </div>
+                    <div class="skill-category glass-card reveal delay-2">
+                        <h3><i class="fas fa-desktop"></i> Frontend</h3>
+                        <div class="skill-tags">
+                            <span class="tag neon-border">React.js</span>
+                            <span class="tag">HTML / CSS</span>
+                            <span class="tag">TailwindCSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Architecture Section -->
+        <section id="architecture" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">System <span class="gradient-text">Architecture</span></h2>
+                <p class="section-subtitle reveal">How I design full-stack & data pipeline systems</p>
+                <div class="sys-arch-diagram reveal">
+                    <!-- SVG Connections -->
+                    <svg class="arch-svg" viewBox="0 0 1000 120" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <filter id="glow-filter">
+                                <feGaussianBlur stdDeviation="3" result="blur"/>
+                                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Connection paths -->
+                        <line x1="130" y1="60" x2="220" y2="60" stroke="rgba(0,240,255,0.25)" stroke-width="2" stroke-dasharray="6 4"/>
+                        <line x1="310" y1="60" x2="400" y2="60" stroke="rgba(0,240,255,0.25)" stroke-width="2" stroke-dasharray="6 4"/>
+                        <line x1="490" y1="60" x2="580" y2="60" stroke="rgba(0,240,255,0.25)" stroke-width="2" stroke-dasharray="6 4"/>
+                        <line x1="670" y1="60" x2="760" y2="60" stroke="rgba(0,240,255,0.25)" stroke-width="2" stroke-dasharray="6 4"/>
+                        <line x1="850" y1="60" x2="940" y2="60" stroke="rgba(0,240,255,0.25)" stroke-width="2" stroke-dasharray="6 4"/>
+                        <!-- Traveling data packets -->
+                        <circle r="4" fill="#00f0ff" filter="url(#glow-filter)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M130,60 L220,60"/>
+                        </circle>
+                        <circle r="4" fill="#9d00ff" filter="url(#glow-filter)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M310,60 L400,60" begin="0.5s"/>
+                        </circle>
+                        <circle r="4" fill="#00f0ff" filter="url(#glow-filter)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M490,60 L580,60" begin="1s"/>
+                        </circle>
+                        <circle r="4" fill="#9d00ff" filter="url(#glow-filter)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M670,60 L760,60" begin="1.5s"/>
+                        </circle>
+                        <circle r="4" fill="#00f0ff" filter="url(#glow-filter)">
+                            <animateMotion dur="2.5s" repeatCount="indefinite" path="M850,60 L940,60" begin="2s"/>
+                        </circle>
+                    </svg>
+                    <!-- Nodes -->
+                    <div class="arch-nodes-container">
+                        <div class="arch-node" data-tooltip="Built React.js frontends with TailwindCSS for responsive UIs">
+                            <div class="arch-icon"><i class="fas fa-desktop"></i></div>
+                            <div class="arch-label">React Client</div>
+                        </div>
+                        <div class="arch-node" data-tooltip="Nginx reverse proxy with Docker for traffic routing & deployment">
+                            <div class="arch-icon"><i class="fas fa-network-wired"></i></div>
+                            <div class="arch-label">API Gateway</div>
+                        </div>
+                        <div class="arch-node" data-tooltip="Spring Boot & Node.js REST APIs with MVC architecture">
+                            <div class="arch-icon"><i class="fas fa-server"></i></div>
+                            <div class="arch-label">Spring Boot</div>
+                        </div>
+                        <div class="arch-node" data-tooltip="ETL pipelines and data services for enterprise financial systems at IVP">
+                            <div class="arch-icon"><i class="fas fa-exchange-alt"></i></div>
+                            <div class="arch-label">ETL Pipeline</div>
+                        </div>
+                        <div class="arch-node" data-tooltip="MySQL/SSMS with optimized queries and stored procedures">
+                            <div class="arch-icon"><i class="fas fa-database"></i></div>
+                            <div class="arch-label">Database</div>
+                        </div>
+                        <div class="arch-node" data-tooltip="AWS EC2/S3 with CI/CD, PM2 process management, Linux">
+                            <div class="arch-icon"><i class="fab fa-aws"></i></div>
+                            <div class="arch-label">AWS Deploy</div>
+                        </div>
+                    </div>
+                    <!-- Tooltip (positioned by JS) -->
+                    <div class="arch-tooltip" id="arch-tooltip"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Featured <span class="gradient-text">Projects</span></h2>
+                <div class="projects-grid">
+                    <div class="project-card glass-card hover-glow outline-blue reveal">
+                        <div class="project-visual ai-waveform">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="ai-icon"><i class="fas fa-camera"></i></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Attentify – Smart Attendance System</h3>
+                            <p>Real-time face recognition via live webcam feed to automate attendance without manual input. AI-based verification prevents proxy attendance, with JWT & cookie-based auth and RBAC.</p>
+                            <div class="tech-stack">
+                                <span>MERN</span><span>Flask</span><span>Facial-Recognition</span><span>WebRTC</span><span>JWT</span>
+                            </div>
+                            <a href="https://github.com/TushrS07" target="_blank" class="btn btn-primary glow-effect btn-sm mt-3">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-card glass-card hover-glow outline-purple reveal delay-1">
+                        <div class="project-visual analytics-chart">
+                            <div class="chart-bar h-40"></div><div class="chart-bar h-70"></div><div class="chart-bar h-50"></div><div class="chart-bar h-90"></div><div class="chart-bar h-60"></div>
+                            <div class="chart-line"></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Socio-AI – Social Media to Amazon Listing Converter</h3>
+                            <p>Python-based automation engine that extracts and converts social media content into Amazon-ready product listings. Integrated Next.js APIs to display and manage generated listings.</p>
+                            <div class="tech-stack">
+                                <span>MERN</span><span>Flask</span><span>Next.js</span><span>Python</span>
+                            </div>
+                            <a href="https://github.com/TushrS07" target="_blank" class="btn btn-primary glow-effect btn-sm mt-3">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-card glass-card hover-glow outline-blue reveal delay-2">
+                        <div class="project-visual ai-waveform">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="ai-icon"><i class="fas fa-shield-alt"></i></div>
+                        </div>
+                        <div class="project-content">
+                            <h3>User Session & Login Activity Tracker</h3>
+                            <p>Secure RESTful APIs built with Spring Boot. Implements authentication, session tracking, IP/device logging, and forced logout. Relational DB schema designed for audit and monitoring.</p>
+                            <div class="tech-stack">
+                                <span>Spring Boot</span><span>MySQL</span><span>REST APIs</span><span>JWT</span>
+                            </div>
+                            <a href="https://github.com/TushrS07" target="_blank" class="btn btn-primary glow-effect btn-sm mt-3">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Insights & <span class="gradient-text">Blog</span></h2>
+                <div class="blog-grid">
+                    <article class="blog-card glass-card hover-glow reveal">
+                        <div class="blog-card-header">
+                            <span class="blog-category">Backend</span>
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> Mar 2026</span>
+                        </div>
+                        <h3 class="blog-title">Building Secure Session Tracking with Spring Boot</h3>
+                        <p class="blog-excerpt">How I designed IP/device logging, forced logout, and audit-ready relational schemas for enterprise-grade authentication...</p>
+                        <div class="blog-footer">
+                            <span class="blog-readtime"><i class="far fa-clock"></i> 5 min read</span>
+                            <a href="#" class="blog-readmore">Coming Soon</a>
+                        </div>
+                    </article>
+                    <article class="blog-card glass-card hover-glow reveal delay-1">
+                        <div class="blog-card-header">
+                            <span class="blog-category">Full Stack</span>
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> Feb 2026</span>
+                        </div>
+                        <h3 class="blog-title">Real-Time Face Recognition in the Browser with WebRTC</h3>
+                        <p class="blog-excerpt">A deep dive into building Attentify — integrating Flask, facial recognition, and WebRTC webcam feeds for live attendance automation...</p>
+                        <div class="blog-footer">
+                            <span class="blog-readtime"><i class="far fa-clock"></i> 7 min read</span>
+                            <a href="#" class="blog-readmore">Coming Soon</a>
+                        </div>
+                    </article>
+                    <article class="blog-card glass-card hover-glow reveal delay-2">
+                        <div class="blog-card-header">
+                            <span class="blog-category">Data</span>
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> Jan 2026</span>
+                        </div>
+                        <h3 class="blog-title">SQL Optimization Lessons from Production Financial Systems</h3>
+                        <p class="blog-excerpt">What I learned optimizing stored procedures and queries in SSMS/MySQL for high-volume enterprise data pipelines at IVP...</p>
+                        <div class="blog-footer">
+                            <span class="blog-readtime"><i class="far fa-clock"></i> 6 min read</span>
+                            <a href="#" class="blog-readmore">Coming Soon</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title reveal">Get In <span class="gradient-text">Touch</span></h2>
+                <div class="contact-grid">
+                    <div class="contact-info glass-card reveal">
+                        <h3>Let's build something amazing together.</h3>
+                        <p class="mb-4">I'm open to new opportunities. Whether you have a question, a project idea, or just want to say hi, I'll get back to you!</p>
+                        <div class="contact-methods">
+                            <div class="method-item">
+                                <div class="icon-box neon-blue"><i class="fas fa-phone-alt"></i></div>
+                                <div><h4>Phone</h4><p>+91 8146786435</p></div>
+                            </div>
+                            <div class="method-item">
+                                <div class="icon-box neon-purple"><i class="fas fa-envelope"></i></div>
+                                <div><h4>Email</h4><p>tusharsingla1205@gmail.com</p></div>
+                            </div>
+                            <div class="method-item">
+                                <div class="icon-box neon-blue"><i class="fas fa-map-marker-alt"></i></div>
+                                <div><h4>Location</h4><p>Noida, India</p></div>
+                            </div>
+                        </div>
+                        <div class="social-links-container mt-4" style="margin-bottom: 2rem;">
+                            <div class="social-links">
+                                <a href="https://github.com/TushrS07" target="_blank" class="glass-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="#" class="glass-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <a href="Tushar_Singla_Resume.docx" download="Tushar_Singla_Resume.docx" class="btn btn-primary glow-effect">
+                            <i class="fas fa-file-pdf"></i> Download Resume
+                        </a>
+                    </div>
+                    <div class="contact-form-container glass-card outline-purple reveal delay-1">
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" class="glass-input" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="glass-input" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="glass-input" rows="5" placeholder="Your message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary glow-effect w-100">
+                                Send Message <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer content-hidden">
+        <div class="container text-center">
+            <p>&copy; 2025 Tushar Singla. Designed & Built with <i class="fas fa-heart neon-purple-text"></i></p>
+        </div>
+    </footer>
+
+    <!-- Scroll Progress Pipeline -->
+    <div id="scroll-pipeline" class="scroll-pipeline content-hidden">
+        <div class="pipeline-track">
+            <div class="pipeline-stage" data-section="home">
+                <div class="pipeline-node"></div><span class="pipeline-label">INIT</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="about">
+                <div class="pipeline-node"></div><span class="pipeline-label">PROFILE</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="experience">
+                <div class="pipeline-node"></div><span class="pipeline-label">EXP</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="certifications">
+                <div class="pipeline-node"></div><span class="pipeline-label">CERTS</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="skills">
+                <div class="pipeline-node"></div><span class="pipeline-label">SKILLS</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="architecture">
+                <div class="pipeline-node"></div><span class="pipeline-label">ARCH</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="projects">
+                <div class="pipeline-node"></div><span class="pipeline-label">PROJECTS</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="blog">
+                <div class="pipeline-node"></div><span class="pipeline-label">BLOG</span>
+            </div>
+            <div class="pipeline-connector"></div>
+            <div class="pipeline-stage" data-section="contact">
+                <div class="pipeline-node"></div><span class="pipeline-label">DEPLOY</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg: Achievement Toast -->
+    <div id="easter-egg-toast" class="easter-egg-toast">
+        <div class="toast-icon"><i class="fas fa-trophy"></i></div>
+        <div class="toast-content">
+            <div class="toast-title">ACHIEVEMENT UNLOCKED</div>
+            <div class="toast-msg">You found the secret! Tushar appreciates your curiosity.</div>
+        </div>
+    </div>
+
+    <!-- Easter Egg: Debug Panel -->
+    <div id="debug-panel" class="debug-panel glass-card">
+        <button class="debug-close" id="debug-close"><i class="fas fa-times"></i></button>
+        <h3 class="neon-blue"><i class="fas fa-bug"></i> Debug Mode</h3>
+        <div class="debug-info">
+            <div class="debug-row"><span class="debug-key">Framework:</span><span class="debug-val">None (Vanilla JS)</span></div>
+            <div class="debug-row"><span class="debug-key">Markup:</span><span class="debug-val">HTML5</span></div>
+            <div class="debug-row"><span class="debug-key">Styling:</span><span class="debug-val">CSS3 + Custom Properties</span></div>
+            <div class="debug-row"><span class="debug-key">Animations:</span><span class="debug-val">Canvas + SVG + CSS</span></div>
+            <div class="debug-row"><span class="debug-key">Fonts:</span><span class="debug-val">Space Grotesk, Inter</span></div>
+            <div class="debug-row"><span class="debug-key">Theme:</span><span class="debug-val">Glassmorphism + Neon</span></div>
+            <div class="debug-row"><span class="debug-key">Pages:</span><span class="debug-val">7 (index, 2 projects, blog, 404)</span></div>
+            <div class="debug-row"><span class="debug-key">Easter Eggs:</span><span class="debug-val" id="eggs-found">0/4</span></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
