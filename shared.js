@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     if (themeToggle && themeIcon) {
-        const savedTheme = localStorage.getItem('kavya-theme') || 'dark';
+        const savedTheme = localStorage.getItem('Tushar-theme') || 'dark';
         document.body.classList.remove('dark-theme', 'light-theme');
         document.body.classList.add(savedTheme + '-theme');
         themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('dark-theme', 'light-theme');
             document.body.classList.add(isDark ? 'light-theme' : 'dark-theme');
             themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            localStorage.setItem('kavya-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('Tushar-theme', isDark ? 'light' : 'dark');
             if (typeof particles !== 'undefined' && particles) {
                 const isLight = isDark;
                 particles.forEach(p => {

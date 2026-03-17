@@ -375,10 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Echo the command
         const cmdEcho = document.createElement('div');
         cmdEcho.className = 'term-line term-cmd';
-        cmdEcho.innerHTML = `<span class="prompt-echo">visitor@kavya-os:~$</span> ${trimmed}`;
+        cmdEcho.innerHTML = `<span class="prompt-echo">visitor@Tushar-os:~$</span> ${trimmed}`;
         terminalOutput.appendChild(cmdEcho);
 
-        // Check for full match first (e.g., "sudo hire kavya")
+        // Check for full match first (e.g., "sudo hire Tushar")
         if (commands[trimmed.toLowerCase()]) {
             const result = commands[trimmed.toLowerCase()]();
             addTerminalOutput(result);
@@ -608,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const subject = encodeURIComponent(`Portfolio Contact: ${name}`);
             const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
 
-            window.location.href = `mailto:kavyamittal1282@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:tusharsingla1205@gmail.com?subject=${subject}&body=${body}`;
 
             const btn = contactForm.querySelector('button');
             const originalText = btn.innerHTML;
@@ -1111,7 +1111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeIcon = document.getElementById('theme-icon');
 
     if (themeToggle && themeIcon) {
-        const savedTheme = localStorage.getItem('kavya-theme') || 'dark';
+        const savedTheme = localStorage.getItem('Tushar-theme') || 'dark';
         document.body.classList.remove('dark-theme', 'light-theme');
         document.body.classList.add(savedTheme + '-theme');
         themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
@@ -1122,11 +1122,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isDark) {
                 document.body.classList.add('light-theme');
                 themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('kavya-theme', 'light');
+                localStorage.setItem('Tushar-theme', 'light');
             } else {
                 document.body.classList.add('dark-theme');
                 themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('kavya-theme', 'dark');
+                localStorage.setItem('Tushar-theme', 'dark');
             }
             // Update particle colors
             if (particles) {
@@ -1418,7 +1418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function toggle() {
             init();
             enabled = !enabled;
-            localStorage.setItem('kavya-sound', enabled ? 'on' : 'off');
+            localStorage.setItem('Tushar-sound', enabled ? 'on' : 'off');
             if (soundIcon) {
                 soundIcon.className = enabled ? 'fas fa-volume-high' : 'fas fa-volume-xmark';
             }
@@ -1427,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Restore preference
-        const pref = localStorage.getItem('kavya-sound');
+        const pref = localStorage.getItem('Tushar-sound');
         if (pref === 'on') {
             init();
             enabled = true;
@@ -1464,7 +1464,7 @@ document.addEventListener('DOMContentLoaded', () => {
        24. Visitor Hacker Profile Progression System
        ========================================================================== */
     const VisitorProfile = (() => {
-        const STORAGE_KEY = 'kavya-visitor-profile';
+        const STORAGE_KEY = 'Tushar-visitor-profile';
         const defaults = {
             sectionsVisited: [], commandsUsed: [], eggsFound: [],
             totalVisits: 0, resumeDownloaded: false,
@@ -1624,8 +1624,8 @@ document.addEventListener('DOMContentLoaded', () => {
        25. Dynamic Geolocation Greeting
        ========================================================================== */
     const GeoGreeting = (() => {
-        const CACHE_KEY = 'kavya-visitor-geo';
-        const KAVYA_LAT = 28.4595, KAVYA_LON = 77.0266; // Gurugram
+        const CACHE_KEY = 'Tushar-visitor-geo';
+        const Tushar_LAT = 28.4595, Tushar_LON = 77.0266; // Gurugram
 
         function haversine(lat1, lon1, lat2, lon2) {
             const R = 6371;
@@ -1676,23 +1676,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ping command for terminal
         commands.ping = () => {
             if (!geoData || !geoData.lat) {
-                return `<div class="term-output">PING kavya.dev (${KAVYA_LAT.toFixed(2)}N, ${KAVYA_LON.toFixed(2)}E)</div>
+                return `<div class="term-output">PING Tushar.dev (${Tushar_LAT.toFixed(2)}N, ${Tushar_LON.toFixed(2)}E)</div>
 <div class="term-output" style="color:var(--text-muted)">Location unavailable. Try again later.</div>`;
             }
-            const dist = haversine(geoData.lat, geoData.lon, KAVYA_LAT, KAVYA_LON);
+            const dist = haversine(geoData.lat, geoData.lon, Tushar_LAT, Tushar_LON);
             const fakePing = Math.max(1, Math.round(dist * 0.015 + Math.random() * 5));
-            return `<div class="term-heading">PING kavya.dev</div>
+            return `<div class="term-heading">PING Tushar.dev</div>
 <div class="term-output">From: ${geoData.city}, ${geoData.country} (${geoData.lat.toFixed(2)}, ${geoData.lon.toFixed(2)})</div>
-<div class="term-output">To: Gurugram, India (${KAVYA_LAT.toFixed(2)}, ${KAVYA_LON.toFixed(2)})</div>
+<div class="term-output">To: Gurugram, India (${Tushar_LAT.toFixed(2)}, ${Tushar_LON.toFixed(2)})</div>
 <div class="term-output" style="margin-top:0.3rem">Distance: <strong style="color:var(--accent-blue)">${Math.round(dist).toLocaleString()} km</strong></div>
 <div class="term-output">64 bytes: icmp_seq=1 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing}ms</strong></div>
 <div class="term-output">64 bytes: icmp_seq=2 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing + Math.round(Math.random() * 3)}ms</strong></div>
 <div class="term-output">64 bytes: icmp_seq=3 ttl=64 time=<strong style="color:var(--accent-purple)">${fakePing + Math.round(Math.random() * 3)}ms</strong></div>
-<div class="term-success" style="margin-top:0.3rem">--- kavya.dev ping statistics ---</div>
+<div class="term-success" style="margin-top:0.3rem">--- Tushar.dev ping statistics ---</div>
 <div class="term-output">3 packets transmitted, 3 received, 0% packet loss</div>`;
         };
 
-        return { fetchGeo, haversine, getData: () => geoData, KAVYA_LAT, KAVYA_LON };
+        return { fetchGeo, haversine, getData: () => geoData, Tushar_LAT, Tushar_LON };
     })();
 
     window.GeoGreeting = GeoGreeting;
@@ -2022,7 +2022,7 @@ const commands = {
   about: () => { scrollToSection('about'); return info; },
   skills: () => { scrollToSection('skills'); return techStack; },
   neofetch: () => renderAsciiSystemInfo(),
-  'sudo hire kavya': () => {
+  'sudo hire Tushar': () => {
     terminal.classList.add('terminal-flash');
     registerEgg('terminal');
     return '===== ACCESS GRANTED =====';
@@ -2260,7 +2260,7 @@ fetch('https://ipapi.co/json/')
         return origHelp2()
             .replace('</div>', '') +
 `<span class="term-key">profile</span><span class="term-val">View your hacker profile</span>
-<span class="term-key">ping</span><span class="term-val">Ping kavya.dev</span>
+<span class="term-key">ping</span><span class="term-val">Ping Tushar.dev</span>
 <span class="term-key">source</span><span class="term-val">View source code</span>
 <span class="term-key">run</span><span class="term-val">Run JavaScript code</span>
 <span class="term-key">sql</span><span class="term-val">Query mock database</span>
@@ -2407,12 +2407,12 @@ fetch('https://ipapi.co/json/')
     /* ==========================================================================
        32. "Hiring Mode" Contact Enhancement
        ========================================================================== */
-    let hiringMode = sessionStorage.getItem('kavya-hiring-mode') === 'true';
+    let hiringMode = sessionStorage.getItem('Tushar-hiring-mode') === 'true';
 
     function activateHiringMode() {
         if (hiringMode) return;
         hiringMode = true;
-        sessionStorage.setItem('kavya-hiring-mode', 'true');
+        sessionStorage.setItem('Tushar-hiring-mode', 'true');
 
         const contactSection = document.getElementById('contact');
         const form = document.getElementById('contactForm');
@@ -2452,9 +2452,9 @@ fetch('https://ipapi.co/json/')
         }
     }
 
-    // Hook into existing sudo hire kavya command
-    const origSudoHire = commands['sudo hire kavya'];
-    commands['sudo hire kavya'] = () => {
+    // Hook into existing sudo hire Tushar command
+    const origSudoHire = commands['sudo hire Tushar'];
+    commands['sudo hire Tushar'] = () => {
         activateHiringMode();
         return origSudoHire();
     };
@@ -2625,11 +2625,11 @@ fetch('https://ipapi.co/json/')
     /* ==========================================================================
        35. Incognito Mode
        ========================================================================== */
-    let incognitoMode = localStorage.getItem('kavya-incognito') === 'true';
+    let incognitoMode = localStorage.getItem('Tushar-incognito') === 'true';
 
     function toggleIncognito() {
         incognitoMode = !incognitoMode;
-        localStorage.setItem('kavya-incognito', incognitoMode);
+        localStorage.setItem('Tushar-incognito', incognitoMode);
         applyIncognito();
         return incognitoMode;
     }
